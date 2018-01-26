@@ -1,0 +1,83 @@
+<div class="auth-main">
+  <div class="auth-block">
+    <h1>Sign in</h1>
+    <a routerLink="/register" class="auth-link">Want to be a member? Sign up!</a>
+
+    <form [formGroup]="form" novalidate (ngSubmit)="submitForm(form.value, form.valid)" class="form-horizontal">
+      <div class="form-group row"
+      [class.has-error]="!email.valid && submitAttempt"
+      >
+      <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+      <div class="col-sm-10">
+        <input [formControl]="email" type="email" class="form-control" id="inputEmail3" placeholder="Email">
+      </div>
+      <div class="col-sm-10">
+        <small *ngIf="email.hasError('required') && submitAttempt " class="col-xs-12" style="padding-left:0">
+          email ist pflicht
+        </small>
+        <small *ngIf="email.hasError('minlength') && submitAttempt" class="col-xs-12" style="padding-left:0">
+          email muss min 5 Buchstaben enthalten.
+        </small>
+        <small *ngIf="email.hasError('validateEmail') && submitAttempt" class="col-xs-12" style="padding-left:0">
+          Format sollte <i>abcd@xyz.com</i> sein.
+        </small>
+      </div>
+    </div>
+
+
+    <div class="form-group row" [class.has-error]="!password.valid && submitAttempt">
+      <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+
+      <div class="col-sm-10">
+        <input [formControl]="password" type="password" class="form-control" id="inputPassword3" placeholder="Password">
+      </div>
+      <div class="col-sm-10">
+        <small *ngIf="password.hasError('required') && submitAttempt " class="col-xs-12" style="padding-left:0">
+          password ist pflicht
+        </small>
+        <small *ngIf="password.hasError('minlength') && submitAttempt" class="col-xs-12" style="padding-left:0">
+          password muss min 6 Buchstaben enthalten.
+        </small>
+      </div>
+    </div>
+    <div class="form-group row" *ngIf="errorMsg" >
+      <div class="col-sm-offset-2 col-sm-10">
+      <div class="alert alert-danger" role="alert" style="margin-top:0px; margin-bottom:0px">
+        <strong>login failed:</strong> {{errorMsg}}
+      </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default btn-auth">Sign in</button>
+      <a routerLink="/forgotpassword" class="forgot-pass">Forgot password?</a>
+    </div>
+  </div>
+</form>
+
+<div class="auth-sep"><span><span>or Sign in with one click</span></span></div>
+
+<div class="al-share-auth">
+  <ul class="al-share clearfix">
+    <li>
+      <a  (click)="loginWithProvider('facebook')">
+        <i class="socicon socicon-facebook" title="Connect on Facebook"></i>
+      </a>
+
+    </li>
+      <!--
+      <li>
+        <a (click)="loginWithProvider('twitter')">
+          <i class="socicon socicon-twitter" title="Connect on Twitter"></i>
+        </a>
+      </li>
+    -->
+    <li>
+      <a  (click)="loginWithProvider('google')">
+        <i class="socicon socicon-google" title="Connect on Google"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+</div>
+</div>

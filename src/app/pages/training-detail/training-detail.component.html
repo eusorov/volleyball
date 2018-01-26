@@ -1,0 +1,84 @@
+<!--
+<pre>{{training | json}}</pre>
+ -->
+<div class="row">
+	<div class="col-xs-12 col-lg-8">
+		<ba-card title="" baCardClass="with-scroll table-panel">
+			<form class="form-horizontal" [formGroup]="form" novalidate (ngSubmit)="submitForm(form.value, form.valid)">
+				<div class="form-group row" [class.has-error]="!form.controls.weekday.valid && submitAttempt">
+					<label for="weekday" class="col-xs-4 col-sm-2 form-control-label">Wochentag</label>
+					<div class="col-xs-8 col-sm-10">
+						<input formControlName="weekday" type="text" id="weekday" class="form-control" placeholder="Mo" >
+					</div>
+				</div>
+				<div class="form-group row">
+				    <label class="col-form-label col-xs-4 col-sm-2">Uhrzeit</label>
+					<div class="col-xs-8 col-sm-10 form-inline">
+						<div class="form-group" [class.has-error]="!form.controls.timeFrom.valid && submitAttempt">
+							<div class="">
+								<input  formControlName="timeFrom"
+								 id="timeFrom" type="time" class="form-control" placeholder="00:00" style="line-height: 1rem;" >
+							</div>
+						</div>
+						<label class="control-label">:</label>
+						<div class="form-group"  [class.has-error]="!form.controls.timeTill.valid && submitAttempt">
+							<div class="">
+								<input formControlName="timeTill"
+								id="timeFrom" type="time" class="form-control" placeholder="24:00" style="line-height: 1rem;">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group row"  [class.has-error]="!form.controls.level.valid && submitAttempt">
+					<label for="level" class="col-xs-4 col-sm-2 form-control-label">Level</label>
+					<div class="col-xs-8 col-sm-10 ">
+						<input formControlName="level" type="text" id="level" class="form-control" placeholder="Level A1-F" >
+					</div>
+				</div>
+
+				<div class="form-group row"  [class.has-error]="!form.controls.trainername.valid && submitAttempt">
+					<label for="level" class="col-xs-4 col-sm-2 form-control-label">Trainername</label>
+					<div class="col-xs-8 col-sm-10">
+						<input formControlName="trainername" type="text" id="trainername" class="form-control" placeholder="Trainername" >
+					</div>
+				</div>
+				<div class="form-group row"  [class.has-error]="!form.controls.capacity.valid && submitAttempt">
+					<label for="capacity" class="col-xs-4 col-sm-2 form-control-label">Teilnehmerzahl</label>
+					<div class="col-xs-8 col-sm-10">
+						<input formControlName="capacity" type="number" id="capacity" class="form-control" placeholder="10" >
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-primary">Save</button>
+						<button *ngIf="id" type="button" (click)="smModal.show()" class="btn btn-danger">Delete</button>
+					</div>
+				</div>
+			</form>
+		</ba-card>
+	</div>
+</div>
+
+<!--
+
+<div bsModal #smModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" >
+    <div class="modal-content" style="background: rgba(181, 117, 7, 0.75);">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="smModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>You delete the Training</h4>
+      </div>
+      <div class="modal-body">
+		Sie löschen den Kurs, Daten werden nicht wiederhergestellt.
+      </div>
+      <div class="modal-footer">
+			<button type="button" type="submit" (click)="smModal.hide();" class="btn btn-primary">Cancel</button>
+        	<button type="button" (click)="delete(); smModal.hide();" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+-->

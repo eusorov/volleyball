@@ -1,0 +1,110 @@
+
+<div class="form-group row" *ngIf="userService.user && userService.user.isadmin">
+  <label class="form-control-label text-nowrap" style="float: left; padding-top:8px">Neuen Kurs anlegen</label>
+  <div>
+    <button type="button" [routerLink]="['/pages/training']"  class="btn btn-default btn-icon" title="Neuen Kurs anlegen"><i class="fa fa-plus"></i></button>
+  </div>
+</div>
+
+<div *ngIf="trainings" >
+
+<!--  <pre>{{trainings | json}}</pre>
+-->
+  <ul style="list-style-type: none; padding:5px;" class="todo-list">
+    <div class="row" style="padding-bottom:10px;">
+      <div class="col-9">
+        <div class="row">
+      <div class="col-6">
+          Tag/Uhrzeit
+        </div>
+      <div class="col-6">
+        Level/Trainer
+      </div>
+      </div>
+    </div>
+      <div class="col-3">
+        <span class="float-right">Anmelden</span>
+      </div>
+    </div>
+
+    <ng-template ngFor let-training [ngForOf]="trainings" let-i="index">
+      <li style="font-size: 12px; padding-left: 0px; padding-right: 0px; padding-top:10px;" class="feed-message" [class.active]="training === selectedTraining"	(click)="onSelect(training)">
+        <div class="row">
+          <div class="col-9">
+            <div class="row">
+              <div class="col-6">
+                {{training.weekday}}
+              </div>
+              <div class="col-6">
+                {{training.level}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6" style="font-size: 12px; padding-top:5px; font-weight: 300">
+                {{training.timeFrom |  amDateFormat:'HH:mm'}} - {{training.timeTill |  amDateFormat:'HH:mm'}}
+              </div>
+              <div class="col-6" style="font-size: 12px; padding-top:5px; font-weight: 300">
+                {{training.trainername}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-offset-6 col-6" style="font-size: 12px; padding-top:5px; font-weight: 300">
+                <span>Freie Plätze: </span>
+                <span *ngIf="training.participants" >{{training.capacity-training.participants.length}}</span>
+                <span *ngIf="!training.participants" >{{training.capacity}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <button *ngIf="userService.user"
+            [disabled]="training.participants.length==training.capacity || userIsAlreadySigned(training)"
+            (click)="signingToCourse(training)"
+            class="btn btn-default btn-icon pull-right"
+            [class.btn-success]="userIsAlreadySigned(training)"
+            [class.btn-danger]="training.participants.length==training.capacity && !userIsAlreadySigned(training)"
+            title="Zum Kurs anmelden">
+
+
+            <i *ngIf="training.participants.length<training.capacity && !userIsAlreadySigned(training)" class="fa fa-sign-in"></i>
+              <i *ngIf="training.participants.length==training.capacity && !userIsAlreadySigned(training)" class="fa fa-ban"></i>
+              <i *ngIf="userIsAlreadySigned(training)" class="fa fa-check"></i>
+
+            </button>
+
+            <button *ngIf="!userService.user" [routerLink]="['/login']"
+            [disabled]="training.participants.length==training.capacity"
+            [class.btn-danger]="training.participants.length==training.capacity"
+            class="btn btn-default btn-icon pull-right" type="button" title="Zum Kurs anmelden" >
+
+            <i *ngIf="training.participants.length<training.capacity" class="fa fa-sign-in"></i>
+            <i *ngIf="training.participants.length==training.capacity" class="fa fa-ban"></i>
+          </button>
+
+
+          <button *ngIf="userService.user && userService.user.isadmin"
+          (click)="gotoDetail(training._id)" type="button" title="Kurs edit" class="btn btn-default btn-icon pull-right"><i class="fa fa-pencil-square"></i></button>
+        </div>
+      </div>
+    </li>
+    <ng-template [ngIf]="training.showParticipants && userService.user && userService.user.isadmin " >
+      <div class="row" style="padding-top:10px; padding-bottom:10px;">
+        <div class="col-xs-12">
+          Participants
+        </div>
+      </div>
+      <div class="row" *ngFor="let participant of training.participants; let y=index;"  @flyInOut  >
+        <div class="col-1">{{y}}</div>
+        <div class="col-2">
+          {{participant?.name}}
+        </div>
+        <div class="col-6">
+          {{participant?.email}}
+        </div>
+        <div class="col-3">
+          <button (click)="deleteParticipant(training._id, participant._id, y)" type="button" class="btn btn-danger btn-icon pull-right" title="Teilnehmer löschen"><i class="fa fa-minus-circle "></i></button>
+        </div>
+      </div>
+    </ng-template>
+  </ng-template>
+</ul>
+</div>
