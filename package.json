@@ -39,8 +39,7 @@
     "clean:coverage": "npm run rimraf -- coverage",
     "docs:build": "wintersmith build -C docs -o build/ng2-admin",
     "docs:deploy": "npm run docs:build && gh-pages -d docs/build -r git@github.com:akveo/akveo.github.io.git -b master",
-    "docs:serve": "wintersmith preview -C docs",
-    "postinstall": "ng build"
+    "docs:serve": "wintersmith preview -C docs"
   },
   "private": true,
   "dependencies": {
