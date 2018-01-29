@@ -24,7 +24,7 @@
     "lint": "ng lint",
     "clean": "npm run rimraf -- node_modules doc typings coverage dist",
     "clean:dist": "npm run rimraf -- dist",
-    "postinstall": "ng build --prod --aot",
+    "postinstall": "ng build --prod --aot"
   },
   "private": true,
   "dependencies": {
