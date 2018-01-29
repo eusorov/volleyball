@@ -29,4 +29,4 @@ import { TrainingDetail } from './training-detail.component';
 })
 
 //  SelectModule
-export default class TrainingDetailModule {}
+export class TrainingDetailModule {}

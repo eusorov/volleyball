@@ -2,7 +2,7 @@ import { NgModule, ModuleWithProviders }      from '@angular/core';
 import { CommonModule }  from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NgUploaderModule } from 'ngx-uploader';
+//import { NgUploaderModule } from 'ngx-uploader';
 import { AppTranslationModule } from '../app.translation.module';
 
 import {
@@ -111,6 +111,7 @@ const NGA_VALIDATORS = [
   EqualPasswordsValidator
 ];
 
+//NgUploaderModule
 @NgModule({
   declarations: [
     ...NGA_PIPES,
@@ -122,8 +123,7 @@ const NGA_VALIDATORS = [
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    AppTranslationModule,
-    NgUploaderModule
+    AppTranslationModule
   ],
   exports: [
     ...NGA_PIPES,

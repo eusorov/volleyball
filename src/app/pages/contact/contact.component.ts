@@ -4,7 +4,7 @@ import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/form
 import {EmailValidator} from '../../theme/validators';
 import { Http, Response, Headers  } from '@angular/http';
 
-import { RecaptchaComponent  } from 'ng2-recaptcha';
+//import { RecaptchaComponent  } from 'ng2-recaptcha';
 
 
 @Component({
@@ -23,8 +23,8 @@ input:-webkit-autofill:active {
 
 export class Contact implements OnInit {
 
-     @ViewChild (RecaptchaComponent)
-     recaptchaComponent: RecaptchaComponent;
+    //  @ViewChild (RecaptchaComponent)
+    //  recaptchaComponent: RecaptchaComponent;
 
 
     public form:FormGroup;
@@ -88,7 +88,7 @@ export class Contact implements OnInit {
                  },
              err => {console.log(err);
                  this.alerts.push({msg: 'Captcha was wrong', type: 'danger', closable: true, dismissOnTimeout:"3000"});
-                 this.recaptchaComponent.reset();
+                //  this.recaptchaComponent.reset();
              }
              );
      }

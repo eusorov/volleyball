@@ -29,13 +29,13 @@ export class TrainingService {
 
     private trainingsUrl = '/api/trainings';  // URL to web API
 
-    getTrainingsMock() : Observable<Training[]> {
+    getTrainings() : Observable<Training[]> {
         let trainings = new Array(1);
         trainings[0] = TRAININGS;
         return Observable.from(trainings);
     }
 
-    getTrainings (): Observable<Training[]> {
+    getTrainingsMock (): Observable<Training[]> {
         return this.http.get(this.trainingsUrl)
                     .map(this.extractData);
     }
