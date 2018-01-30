@@ -7,7 +7,9 @@
       <div class="form-group row"
       [class.has-error]="!email.valid && submitAttempt"
       >
-      <label for="inputEmail3" class="col-sm-2 control-label">Email (testlogin: test@test.de pass: 123456)</label>
+      <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+      <label class="col-sm-2 control-label">testlogin:      test@test.de pass: 123456</label>
+      <label class="col-sm-2 control-label">testadminlogin: admin@admin.de pass: 123456</label>
       <div class="col-sm-10">
         <input [formControl]="email" type="email" class="form-control" id="inputEmail3" placeholder="Email">
       </div>
