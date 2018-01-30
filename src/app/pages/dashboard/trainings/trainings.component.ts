@@ -85,11 +85,26 @@ export class TrainingsComponent implements OnInit {
         private _router: Router
         ) { }
 
+
+    mapDay ( weekday: string ) : number {
+      switch (weekday) {
+        case "Mo": return 1;
+        case "Di": return 2;
+        case "Mi": return 3;
+        case "Do": return 4;
+        case "Fr": return 5;
+        case "Sa": return 6;
+        case "So": return 7;
+        default: return 99;
+      }
+    }
+
     getTrainings() {
         this._trainingService.getTrainings().subscribe(trainings =>
             this.trainings = trainings.sort((n1,n2) => {
-              if (n1.weekday > n2.weekday) return 1;
-              if (n1.weekday < n2.weekday) return -1;
+
+              if (this.mapDay(n1.weekday) > this.mapDay(n2.weekday)) return 1;
+              if (this.mapDay(n1.weekday) < this.mapDay(n2.weekday)) return -1;
               return 0;
             }),
             error =>  {
