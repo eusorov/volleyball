@@ -86,7 +86,12 @@ export class TrainingsComponent implements OnInit {
         ) { }
 
     getTrainings() {
-        this._trainingService.getTrainings().subscribe(trainings => this.trainings = trainings,
+        this._trainingService.getTrainings().subscribe(trainings =>
+            this.trainings = trainings.sort(n1,n2) => {
+              if (n1.weekday > n2.weekday) return 1;
+              if (n1.weekday < n2.weekday) return -1;
+              return 0;
+            }),
             error =>  {
                 this.errorObj = <any>error ;
                 if (this.errorObj.status === 0){
