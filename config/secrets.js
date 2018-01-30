@@ -32,23 +32,23 @@ module.exports = {
   facebook : {
         clientID        : '254639964877043', // your App ID
         clientSecret    : '16707fd504e63e25fc2e2469f9fcda33', // your App Secret
-        callbackURL     : host+ ':'+port+'/auth/facebook/callback'
+        callbackURL     : host+'/auth/facebook/callback'
     },
 
   google : {
         clientID         : '350472840950-h05tsr332j77jc7qbdjgl7fi2v5qsbl9.apps.googleusercontent.com',
         clientSecret     : 'ZXD6lEuBPnyFkXvS09PqQnKK',
-        callbackURL      : host+ ':'+port+'/auth/google/callback'
+        callbackURL      : host+'/auth/google/callback'
     },
 
   github: {
     clientID: 'f541b1860971793d0e6e',
     clientSecret: 'f5c5122b20cf9f8a47e322560159ac2c25492c0a',
-    callbackURL: host+ ':'+port+"/auth/github/callback"
+    callbackURL: host+"/auth/github/callback"
   },
   linkedin: {
     clientID: 'get_your_own',
     clientSecret: 'get_your_own',
-    callbackURL: host+ ':'+port+"/auth/linkedin/callback"
+    callbackURL: host+"/auth/linkedin/callback"
   }
 };
