@@ -4,8 +4,7 @@ import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/form
 import {EmailValidator} from '../../theme/validators';
 import { Http, Response, Headers  } from '@angular/http';
 
-//import { RecaptchaComponent  } from 'ng2-recaptcha';
-
+import { RecaptchaComponent } from 'ng-recaptcha';
 
 @Component({
     selector: 'contact',
@@ -23,13 +22,12 @@ input:-webkit-autofill:active {
 
 export class Contact implements OnInit {
 
-    //  @ViewChild (RecaptchaComponent)
-    //  recaptchaComponent: RecaptchaComponent;
-
+    @ViewChild (RecaptchaComponent)
+    recaptchaComponent: RecaptchaComponent;
 
     public form:FormGroup;
 
-    private submitAttempt: boolean = false;
+    public submitAttempt: boolean = false;
 
     private headers: Headers;
 
@@ -66,14 +64,14 @@ export class Contact implements OnInit {
     submitForm(form: any, isValid : boolean ): void{
         this.submitAttempt = true;
         if (isValid){
-            this.postTraining(form);
+            this.postForm(form);
         }
     }
 
      /**
      * Send message to server
      */
-     postTraining(message : any) {
+     postForm(message : any) {
          // hinzufuegen, das message wird als Array uebertragen
          let newMessage = new Array();
          newMessage.push(message);
@@ -83,20 +81,24 @@ export class Contact implements OnInit {
          .subscribe(
              (response: Response) => {
                  this.alerts.push({msg: 'Message successfully send', type: 'success', closable: true, dismissOnTimeout:"3000"});
+                 setTimeout(() => this.alerts.splice(this.alerts.length-1, 1), 3000);
                  this.submitAttempt=false;
                  this.form.reset();
                  },
              err => {console.log(err);
                  this.alerts.push({msg: 'Captcha was wrong', type: 'danger', closable: true, dismissOnTimeout:"3000"});
-                //  this.recaptchaComponent.reset();
+                 setTimeout(() => this.alerts.splice(this.alerts.length-1, 1), 3000);
+                 this.recaptchaComponent.reset();
              }
              );
      }
 
      resolved(captchaResponse: string) {
         console.log(`Resolved captcha with response ${captchaResponse}:`);
+    }
 
-
-
+    closeAlert(alert: Object) {
+      const index: number = this.alerts.indexOf(alert);
+      this.alerts.splice(index, 1);
     }
 }

@@ -2,31 +2,25 @@
      [ngClass]="{scrolled: isScrolled}">
   <a routerLink="/pages/dashboard" class="al-logo clearfix"><span>Volley</span>ball</a>
   <a href (click)="toggleMenu()" class="collapse-menu-link ion-navicon"></a>
-<!--
 
-  <div class="search">
-    <i class="ion-ios-search-strong" ng-click="startSearch()"></i>
-    <input id="searchInput" type="text" placeholder="Search for...">
-  </div>
--->
-  <a *ngIf="!user" [routerLink]="['/login']" class="al-logo float-right" title="Login"><span style="color:white;"><i class="fa fa-power-off"></i></span></a>
+  <a *ngIf="!user" [routerLink]="['/login']" class="al-logo float-right" title="Login">
+    <span style="color:white;"><i class="fa fa-power-off"></i></span>
+  </a>
 
   <div *ngIf="user" class="user-profile clearfix" >
-  <div class="user-profile clearfix">
-    <div class="dropdown al-user-profile">
-      <a *ngIf="user.profile_picture" class="profile-toggle-link dropdown-toggle" id="user-profile-dd1" data-toggle="dropdown" aria-expanded="false">
-        <img *ngIf="user.profile_picture" src="{{ user.profile_picture  }}">
-      </a>
-      <a *ngIf="!user.profile_picture" id="user-profile-dd2" data-toggle="dropdown" aria-expanded="false"
-        style="font-size:24px;   margin-top: 8px; color:white;">
-        <i *ngIf="!user.profile_picture" class="fa fa-user"></i>
-      </a>
-      <ul class="dropdown-menu top-dropdown-menu profile-dropdown" aria-labelledby="user-profile-dd">
-        <!-- <li class="dropdown-item"><a href><i class="fa fa-user"></i>Profile</a></li> -->
-        <li class="dropdown-item"><a href class="signout"><i class="fa fa-power-off"></i>Sign out</a></li>
-      </ul>
+    <div class="">
+      <div class="dropdown al-user-profile">
+        <a *ngIf="user.profile_picture" class="profile-toggle-link dropdown-toggle float-right" id="user-profile-dd1" data-toggle="dropdown" aria-expanded="false">
+          <img *ngIf="user.profile_picture" src="{{ user.profile_picture}}">
+        </a>
+        <a *ngIf="!user.profile_picture" class="profile-toggle-link dropdown-toggle float-right" id="user-profile-dd2" data-toggle="dropdown" aria-expanded="false"
+          style="font-size:24px;   margin-top: 8px; color:white;">
+          <i *ngIf="!user.profile_picture" class="fa fa-user"></i>
+        </a>
+        <div class="dropdown-menu top-dropdown-menu profile-dropdown" aria-labelledby="user-profile-dd">
+          <a class="dropdown-item" (click)="logout()" class="signout"><i class="fa fa-power-off"></i>Sign out</a>
+        </div>
+      </div>
     </div>
-    <ba-msg-center></ba-msg-center>
-  </div>
   </div>
 </div>

@@ -1,12 +1,13 @@
 import { Component, ViewContainerRef } from '@angular/core';
 import * as $ from 'jquery';
 
-import { GlobalState } from './global.state';
 import { BaImageLoaderService, BaThemePreloader, BaThemeSpinner } from './theme/services';
 import { BaThemeConfig } from './theme/theme.config';
 import { layoutPaths } from './theme/theme.constants';
 
 import {UserService} from './services/user.service';
+import { GlobalState } from './global.state';
+import { AppState} from './app.service';
 /*
  * App Component
  * Top Level Component
@@ -26,6 +27,7 @@ export class App {
   isMenuCollapsed: boolean = false;
 
   constructor(private _state: GlobalState,
+              private _appState: AppState,
               private _imageLoader: BaImageLoaderService,
               private _spinner: BaThemeSpinner,
               private viewContainerRef: ViewContainerRef,
@@ -42,7 +44,9 @@ export class App {
 
     this._userService.authenticated().subscribe(data => {
       if (data.authenticated) {
-        this._userService.getMe().subscribe();
+        this._userService.getMe().subscribe((user) =>{
+          this._appState.set("user", user);
+        });
       }
     });
   }

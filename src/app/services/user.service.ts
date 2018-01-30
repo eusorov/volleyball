@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 import {GlobalState} from './../global.state';
+import { AppState} from './../app.service';
 
 import {User} from './../entities/user';
 
@@ -27,7 +28,7 @@ export class UserService {
 // store the URL so we can redirect after logging in
 redirectUrl: string;
 
-constructor(private http: Http, private _state:GlobalState) {
+constructor(private http: Http, private _state:GlobalState, private _appState: AppState) {
   //  this.loggedIn = !!localStorage.getItem('auth_token');
 }
 
@@ -50,7 +51,7 @@ signup(user: User, captcha: string) : Observable<User> {
     this.user = user;
     this._state.notifyDataChanged('isLoggedIn', true);
     this._state.notifyDataChanged('user.loggedin', user);
-
+    this._appState.set("user", user);
     return user;
   })
   .catch(this.handleError);
@@ -66,7 +67,6 @@ private handleError (error: Response) {
   authenticated() {
     return this.http.get(this._authenticatedApi, <RequestOptionsArgs> {withCredentials: true})
     .map((res: Response) => {
-      console.log(" is logged!")
       this._state.notifyDataChanged('isLoggedIn', true);
       return res.json();
     })
@@ -80,6 +80,7 @@ private handleError (error: Response) {
 
       this._state.notifyDataChanged('isLoggedIn', false);
       this._state.notifyDataChanged('user.loggedin', null);
+      this._appState.set("user", null);
       return res.json()}
       )
     .catch(this.handleError);
@@ -97,6 +98,7 @@ private handleError (error: Response) {
       });
       this.user = user;
       this._state.notifyDataChanged('user.loggedin', user);
+      this._appState.set("user", user);
       return user;
     })
     .catch(this.handleError);
@@ -118,7 +120,7 @@ private handleError (error: Response) {
       });
       this.user = user;
       this._state.notifyDataChanged('user.loggedin', user);
-
+      this._appState.set("user", user);
       return this.user;
     });
   }

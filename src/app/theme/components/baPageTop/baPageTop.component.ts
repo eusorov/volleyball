@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 
 import {GlobalState} from '../../../global.state';
+import { AppState} from '../../../app.service';
+
 
 import {UserService} from '../../../services/user.service';
 
@@ -16,11 +18,14 @@ export class BaPageTop {
 
   public user: any;
 
-  constructor(private _state:GlobalState, private _userService: UserService) {
+  constructor(private _state:GlobalState, private _appState: AppState, private _userService: UserService) {
     this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
       this.isMenuCollapsed = isCollapsed;
     });
 
+    console.log("this.user:"+this.user)
+    console.log(this.user)
+    this.user = this._appState.get("user");
     this._state.subscribe('user.loggedin', (user) => {
       this.user = user;
     });
@@ -38,8 +43,6 @@ export class BaPageTop {
 
   public logout() {
     this._userService.logout().subscribe(data => {});
-    this._state.notifyDataChanged('user.loggedin', null);
-    this._state.notifyDataChanged('isLoggedIn', false);
     delete this.user;
   }
 }

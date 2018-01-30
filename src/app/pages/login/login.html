@@ -41,16 +41,17 @@
       </div>
     </div>
     <div class="form-group row" *ngIf="errorMsg" >
-      <div class="col-sm-offset-2 col-sm-10">
+      <div class="offset-2 col-sm-10">
       <div class="alert alert-danger" role="alert" style="margin-top:0px; margin-bottom:0px">
         <strong>login failed:</strong> {{errorMsg}}
       </div>
       </div>
     </div>
     <div class="form-group row">
-      <div class="col-sm-offset-2 col-sm-10">
+      <div class="offset-sm-2 col-sm-10">
       <button type="submit" class="btn btn-default btn-auth">Sign in</button>
-      <a routerLink="/forgotpassword" class="forgot-pass">Forgot password?</a>
+
+      <!-- <a routerLink="/forgotpassword" class="forgot-pass">Forgot password?</a> -->
     </div>
   </div>
 </form>

@@ -6,6 +6,11 @@ import { NgaModule } from '../../theme/nga.module';
 import { Register } from './register.component';
 import { routing }       from './register.routing';
 
+import { RecaptchaModule } from 'ng-recaptcha';
+import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+
 
 @NgModule({
   imports: [
@@ -13,6 +18,9 @@ import { routing }       from './register.routing';
     ReactiveFormsModule,
     FormsModule,
     NgaModule,
+    NgbModule,
+    RecaptchaFormsModule,
+    RecaptchaModule.forRoot(),
     routing
   ],
   declarations: [

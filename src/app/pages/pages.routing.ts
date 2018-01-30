@@ -21,7 +21,7 @@ export const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', loadChildren: 'app/pages/dashboard/dashboard.module#DashboardModule' },
       { path: 'training', loadChildren: 'app/pages/training-detail/training-detail.module#TrainingDetailModule' },
-      { path: 'contact', loadChildren: 'app/pages/contact/contact.module' }
+      { path: 'contact', loadChildren: 'app/pages/contact/contact.module#ContactModule' }
     ]
   }
 ];

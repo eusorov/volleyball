@@ -21,8 +21,8 @@ export class TrainingDetail implements OnInit {
 
     public form:FormGroup;
 
-    private id: string;
-    private submitAttempt: boolean = false;
+    public id: string;
+    public submitAttempt: boolean = false;
 
     constructor(
         private fb:FormBuilder,
