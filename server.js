@@ -55,6 +55,7 @@ app.use('/api',function(req, res, next) {
   //  res.setHeader('Access-Control-Allow-Origin', '*');
     // Disable caching so we'll always get the latest comments.
     res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('User-Agent', 'Mozilla/5.0 Google');    
     next();
   });
 
@@ -68,13 +69,6 @@ var mailservice = require('./server/mail.service.js'); // load mail
 app.use('/api/messages', mailservice);
 
 var isDeveloping = false;
-
-app.use('/api',function(req, res, next) {
-  // Set permissive CORS header - this allows this server to be used only as
-  // an API server in conjunction with something like webpack-dev-server.
-  // res.setHeader('Access-Control-Allow-Origin', '*');
-  next();
-});
 
 app.use(express.static(__dirname + '/dist'));
 // alle urls die nicht getroffen wurden, werden an index.html weitergeleitet.
