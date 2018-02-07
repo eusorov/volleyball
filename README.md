@@ -4,6 +4,8 @@ Admin template made by [Akveo team](http://akveo.com/). Github: https://github.c
 
 ### Demo
 
+http://eusorov.webfactional.com/
+
 ## Features
 * TypeScript
 * Webpack
