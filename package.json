@@ -1,15 +1,12 @@
 {
-  "name": "ng2-admin",
+  "name": "volleyballkurs",
   "version": "1.0.0",
-  "description": "Angular and Bootstrap 4 Admin Template.",
-  "author": "Akveo <contact@akveo.com>",
-  "homepage": "http://akveo.github.io/ng2-admin/",
+  "description": "Template with Angular 5 and Bootstrap 4",
+  "author": "Eusorov <eusorov@googlemail.com>",
+  "homepage": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/akveo/ng2-admin.git"
-  },
-  "bugs": {
-    "url": "https://github.com/akveo/ng2-admin/issues"
+    "url": "https://github.com/eusorov/volleyball.git"
   },
   "license": "MIT",
   "scripts": {
