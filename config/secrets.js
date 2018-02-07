@@ -3,6 +3,9 @@ var port = process.env.PORT || '3000'
 module.exports = {
   db: process.env.MONGODB_URI || 'mongodb://localhost/myappdatabase',
 
+  PORT : port,
+  HOST : host,
+
   cryptos: {
     algorithm: 'aes256',
     key: process.env.CRYPTO_KEY || 'computer'

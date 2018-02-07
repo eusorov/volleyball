@@ -31,7 +31,7 @@ mongoose.Promise = global.Promise;
 mongoose.connect(secrets.db);
 // =================================== express =======================
 var app = express();
-app.set('port', (process.env.PORT || 3000));
+app.set('port', secrets.PORT);
 
 require('./server/passport')(passport); // pass passport for configuration
 
@@ -55,7 +55,7 @@ app.use('/api',function(req, res, next) {
   //  res.setHeader('Access-Control-Allow-Origin', '*');
     // Disable caching so we'll always get the latest comments.
     res.setHeader('Cache-Control', 'no-cache');
-    res.setHeader('User-Agent', 'Mozilla/5.0 Google');    
+    res.setHeader('User-Agent', 'Mozilla/5.0 Google');
     next();
   });
 
