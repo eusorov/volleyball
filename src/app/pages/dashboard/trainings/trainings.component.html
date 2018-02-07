@@ -1,7 +1,7 @@
 
 
 <div *ngIf="_userService.user && _userService.user.isadmin" class="row" style="padding-bottom:10px; padding-left:5px">
-  <div class="col-6 text-nowrap " style="padding-top:8px">Neuen Kurs anlegen
+  <div class="col-4 text-nowrap " style="padding-top:8px">Neuen Kurs anlegen
   </div>
   <div class="col-6">
     <button type="button" [routerLink]="['/pages/training']"  class="btn btn-default btn-icon" title="Neuen Kurs anlegen"><i class="fa fa-plus"></i></button>
@@ -57,10 +57,11 @@
               </div>
             </div>
           </div>
+
           <div class="col-3">
-            <button *ngIf="_userService.user && !_userService.user.isadmin"
+            <button *ngIf="_userService.user"
             [disabled]="training.participants.length==training.capacity || userIsAlreadySigned(training)"
-            (click)="signingToCourse(training)"
+            (click)="signingToCourse(content, training)"
             class="btn btn-default btn-icon pull-right"
             [class.btn-success]="userIsAlreadySigned(training)"
             [class.btn-danger]="training.participants.length==training.capacity && !userIsAlreadySigned(training)"
@@ -88,6 +89,9 @@
         </div>
       </div>
     </li>
+
+
+
     <ng-template [ngIf]="training.showParticipants && _userService.user && _userService.user.isadmin" >
       <div class="row" style="padding-top:10px; padding-bottom:10px;">
         <div class="col-12">
@@ -104,11 +108,38 @@
           {{participant?.email}}
         </div>
         <div class="col-2">
-          <button (click)="deleteParticipant(training._id, participant._id, y)" type="button" class="btn btn-danger btn-icon float-right" title="Teilnehmer löschen"><i class="fa fa-minus-circle "></i></button>
+          <button (click)="deleteParticipant(deleteModal, training._id, participant._id, y)" type="button" class="btn btn-danger btn-icon float-right" title="Teilnehmer löschen"><i class="fa fa-minus-circle "></i></button>
         </div>
       </div>
       </div>
     </ng-template>
   </ng-template>
+
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Sign in to course?</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="c('close')">Close</button>
+      <button type="button" class="btn btn-success " (click)="c('success')">Ok</button>
+    </div>
+  </ng-template>
+
+  <ng-template #deleteModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Delete Participant?</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="c('close')">Close</button>
+      <button type="button" class="btn btn-success " (click)="c('success')">Ok</button>
+    </div>
+  </ng-template>
+
 </ul>
 </div>

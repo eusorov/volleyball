@@ -1,7 +1,6 @@
-import {Component, OnInit, Input,
-
-} from '@angular/core';
+import {Component, ViewEncapsulation, OnInit, Input} from '@angular/core';
 import {Router } from '@angular/router';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 import {TrainingService} from './../../../services/training.service';
 import {UserService} from './../../../services/user.service';
@@ -14,6 +13,7 @@ import { trigger,style,transition,animate,keyframes,query,stagger,state } from '
 @Component({
     selector: 'trainings',
     templateUrl: './trainings.component.html',
+    encapsulation: ViewEncapsulation.None,
     styleUrls: ['./trainings.component.scss'],
     animations: [
     trigger('fadeInOut', [
@@ -82,31 +82,12 @@ export class TrainingsComponent implements OnInit {
     constructor(
         private _trainingService: TrainingService,
         public _userService: UserService,
-        private _router: Router
+        private _router: Router,
+        private _modalService: NgbModal
         ) { }
 
-
-    mapDay ( weekday: string ) : number {
-      switch (weekday) {
-        case "Mo": return 1;
-        case "Di": return 2;
-        case "Mi": return 3;
-        case "Do": return 4;
-        case "Fr": return 5;
-        case "Sa": return 6;
-        case "So": return 7;
-        default: return 99;
-      }
-    }
-
     getTrainings() {
-        this._trainingService.getTrainings().subscribe(trainings =>
-            this.trainings = trainings.sort((n1,n2) => {
-
-              if (this.mapDay(n1.weekday) > this.mapDay(n2.weekday)) return 1;
-              if (this.mapDay(n1.weekday) < this.mapDay(n2.weekday)) return -1;
-              return 0;
-            }),
+        this._trainingService.getTrainings().subscribe(trainings => this.trainings = trainings,
             error =>  {
                 this.errorObj = <any>error ;
                 if (this.errorObj.status === 0){
@@ -139,33 +120,40 @@ export class TrainingsComponent implements OnInit {
         });
     }
 
-    signingToCourse(training: Training){
-        if (this._userService.user){
-            this._trainingService.putParticipantToTraining(training._id, this._userService.user.name, this._userService.user.email).
-            subscribe((res) => {
-                if (res.status === 201){
-
-                    // um doppelte Eintrage in participants zu vermeiden
-                    if (!this.userIsAlreadySigned(training)){
-                        // fuegen wir neuen Teilnehmer hinzu.
-                        training.participants.push({_id:'', name: this._userService.user.name, email: this._userService.user.email});
-                    }
-                }
-            },
-            error =>  {
-                this.errorObj = <any>error ;
-                if (this.errorObj.status === 0){
-                    this.errorMessage = "Server is timedout, no connection";
-                }
-            });
-        }
+    signingToCourse(content, training: Training){
+        const activeModal = this._modalService.open(content, { size: 'sm', windowClass: 'dark-modal' });
+        activeModal.result.then((result) => {
+            if (result === 'success'){
+              if (this._userService.user){
+                  this._trainingService.putParticipantToTraining(training._id, this._userService.user.name, this._userService.user.email).
+                  subscribe((res) => {
+                      if (res.status === 201){
+                          // um doppelte Eintrage in participants zu vermeiden
+                          if (!this.userIsAlreadySigned(training)){
+                              // fuegen wir neuen Teilnehmer hinzu.
+                              training.participants.push({_id:'', name: this._userService.user.name, email: this._userService.user.email});
+                          }
+                      }
+                  },
+                  error =>  {
+                      this.errorObj = <any>error ;
+                      if (this.errorObj.status === 0){
+                          this.errorMessage = "Server is timedout, no connection";
+                      }
+                  });
+              }
+            }
+        });
     }
 
-    deleteParticipant(training_id: string, participant_id: string, index: number){
-         console.log(training_id,participant_id, index);
+    deleteParticipant(content, training_id: string, participant_id: string, index: number){
+       const activeModal = this._modalService.open(content, { size: 'sm', windowClass: 'dark-modal' });
+       activeModal.result.then((result) => {
+           if (result === 'success'){
+             console.log(training_id,participant_id, index);
 
-         this._trainingService.deleteParticipant(training_id,participant_id).
-            subscribe((res) => {
+             this._trainingService.deleteParticipant(training_id,participant_id).
+             subscribe((res) => {
                  if (res.status === 200){
                         console.log(participant_id+"deleted");
                         let training = this.trainings.filter(function(training){
@@ -174,6 +162,7 @@ export class TrainingsComponent implements OnInit {
                         training[0].participants.splice(index, 1);
                  }
             });
-
+          }
+        });
     }
 }
