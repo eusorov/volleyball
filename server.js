@@ -55,7 +55,8 @@ app.use('/api',function(req, res, next) {
   //  res.setHeader('Access-Control-Allow-Origin', '*');
     // Disable caching so we'll always get the latest comments.
     res.setHeader('Cache-Control', 'no-cache');
-    res.setHeader('User-Agent', 'Mozilla/5.0 Google');
+    var useragent = "Mozilla/5.0 (Windows NT 6.1) Chrome/41.0.2228.0";
+    res.setHeader('User-Agent', useragent);
     next();
   });
 

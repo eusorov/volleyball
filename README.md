@@ -4,7 +4,7 @@ Admin template made by [Akveo team](http://akveo.com/). Github: https://github.c
 
 ### Demo
 
-http://eusorov.webfactional.com/
+http://www.usomi.de/
 
 ## Features
 * TypeScript
@@ -15,6 +15,12 @@ http://eusorov.webfactional.com/
 * Sass
 * Angular 5
 * jQuery
+
+Backend:
+* node
+* express
+* mongodb
+* passport (social login)
 
 ## License
 [MIT](LICENSE.txt) license.
