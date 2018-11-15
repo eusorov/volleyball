@@ -31,7 +31,7 @@ mongoose.Promise = global.Promise;
 mongoose.connect(secrets.db);
 // =================================== express =======================
 var app = express();
-app.set('port', secrets.PORT);
+app.set('port', process.env.PORT);
 
 require('./server/passport')(passport); // pass passport for configuration
 
